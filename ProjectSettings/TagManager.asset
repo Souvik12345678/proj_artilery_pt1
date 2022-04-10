@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - tag_projectile
+  - tag_opponent1
+  - tag_opponent2
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Tank
+  - Obstacle
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: layer_ground
+    uniqueID: 292713857
+    locked: 0
+  - name: layer_armybase
+    uniqueID: 4057985015
+    locked: 0
+  - name: layer_play
+    uniqueID: 1334043625
+    locked: 0
+  - name: layer_wrldui
+    uniqueID: 2416329751
+    locked: 0
+  - name: layer_projectile
+    uniqueID: 3448171525
+    locked: 0
+  - name: fx_muzzle
+    uniqueID: 3860148703
+    locked: 0
+  - name: layer_debug
+    uniqueID: 622237453
+    locked: 0
