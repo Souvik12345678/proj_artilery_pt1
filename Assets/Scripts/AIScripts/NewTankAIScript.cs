@@ -18,10 +18,11 @@ public class NewTankAIScript : MonoBehaviour
     [SerializeField]
     TankScript tankController;
 
-    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE };
-    STATE currentState;
+    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE ,TARGET_DESTROYED};
+    public STATE currentState;
 
     Vector2 dirToTarget;
+    [SerializeField]
     List<TankScript> enemyList = new List<TankScript>();
 
     // Start is called before the first frame update
@@ -39,6 +40,7 @@ public class NewTankAIScript : MonoBehaviour
         {
             CalculateTargetProperties();
             MovementLogic();
+            AttackLogic();
         }
     }
 
@@ -56,13 +58,25 @@ public class NewTankAIScript : MonoBehaviour
         {
             currentState = STATE.ENEMY_IN_SIGHT;
         }
-
-
-
-
+        if (StateCheckForAttackingTroops())
+        {
+            currentState = STATE.ATTACKING_TROOPS;
+        }
+        if (StateCheckForAttBase())
+        {
+            currentState = STATE.ATTACKING_BASE;
+        
+        }
+        if (StateCheckForTargDest())
+        {
+            currentState = STATE.TARGET_DESTROYED;
+        }
     }
 
+    //----------
     //State change functions
+    //----------
+
     bool StateCheckForIsAppBase()
     {
         if (IsTargetAvailable)
@@ -78,6 +92,29 @@ public class NewTankAIScript : MonoBehaviour
     {
         return enemyList.Count > 0;
     }
+    bool StateCheckForAttackingTroops()
+    {
+        if (enemyList.Count > 0 && IsFacingTowardsEnemy(enemyList[0]))
+        {
+            return true;
+        }
+        return false;
+    }
+    bool StateCheckForAttBase()
+    {
+        float dist = Vector2.Distance(targetBase.transform.position, transform.position);
+        if (dist < targetDistanceTolerance)
+        { return true; }
+        return false;
+    }
+    bool StateCheckForTargDest()
+    {
+        return targetBase.isDestroyed;
+    }
+
+    //----------
+    //State change functions -end
+    //----------
 
     private void CalculateTargetProperties()
     {
@@ -102,11 +139,20 @@ public class NewTankAIScript : MonoBehaviour
             TryDriveTank();
 
         }
-        else if (currentState == STATE.ENEMY_INSIGHT)
+        else if (currentState == STATE.ENEMY_IN_SIGHT)
         {
             TryFaceTowardsEnemy();
         }
-        else if (currentState == STATE.ATTACKING_TROOPS)
+        
+    }
+
+    void AttackLogic()
+    {
+        if (currentState == STATE.ATTACKING_TROOPS)
+        {
+            TryShoot();
+        }
+        else if (currentState == STATE.ATTACKING_BASE)
         {
             TryShoot();
         }
@@ -168,5 +214,11 @@ public class NewTankAIScript : MonoBehaviour
         Transform currTarget = enemyList[0].gameObject.transform;
         Vector2 dirToTarget1 = (currTarget.transform.position - transform.position).normalized;
         tankController.FaceToDirection(dirToTarget1);
+    }
+
+    bool IsFacingTowardsEnemy(TankScript tank)
+    {
+        Vector2 dirToTarget = (tank.transform.position - transform.position).normalized;
+        return (Vector2.Angle(transform.up, dirToTarget) < 10);
     }
 }

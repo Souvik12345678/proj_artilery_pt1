@@ -81,7 +81,7 @@ public class ArmyBaseScript : MonoBehaviour
     public void TakeDamage()
     {
         selfHealth.Decrement(20);
-        Debug.Log(selfHealth.currentHP);
+       // Debug.Log(selfHealth.currentHP);
         progressBar.barProgress = selfHealth.currentHP / 100.0f;
     }
 

@@ -23,13 +23,6 @@ public class FOVObsCheckScript : MonoBehaviour
         InvokeRepeating(nameof(CheckObstacle), 0, 0.5f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     void CheckObstacle()
     {
         Array.Clear(obstaclesInRange, 0, obstaclesInRange.Length);

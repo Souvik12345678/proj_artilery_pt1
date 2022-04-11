@@ -228,6 +228,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Army Base 3
       objectReference: {fileID: 0}
+    - target: {fileID: 676555409666396924, guid: d6710cd636a0518428d87f5a03ead3c8,
+        type: 3}
+      propertyPath: godMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 676555409666396925, guid: d6710cd636a0518428d87f5a03ead3c8,
         type: 3}
       propertyPath: m_RootOrder
@@ -283,6 +288,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 676555409787186572, guid: d6710cd636a0518428d87f5a03ead3c8,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6710cd636a0518428d87f5a03ead3c8, type: 3}
 --- !u!1001 &2113843162
@@ -297,6 +307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3996845019220732852, guid: 5816581308d0df9428b161c0b5b2f423,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3996845019220732858, guid: 5816581308d0df9428b161c0b5b2f423,
         type: 3}
       propertyPath: m_RootOrder
@@ -305,12 +320,12 @@ PrefabInstance:
     - target: {fileID: 3996845019220732858, guid: 5816581308d0df9428b161c0b5b2f423,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3315449
+      value: 1.09
       objectReference: {fileID: 0}
     - target: {fileID: 3996845019220732858, guid: 5816581308d0df9428b161c0b5b2f423,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.003873825
+      value: -1.87
       objectReference: {fileID: 0}
     - target: {fileID: 3996845019220732858, guid: 5816581308d0df9428b161c0b5b2f423,
         type: 3}
@@ -359,28 +374,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5816581308d0df9428b161c0b5b2f423, type: 3}
---- !u!114 &3996845017784296640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3996845017784296650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6156236d6a548e34390a7962394a137b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 3.3
-  angle: 40
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 768
-  isObstaclesInRange: 0
-  obstaclesInRange:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &3996845017784296641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
+  godMode: 0
 --- !u!61 &3996845017784296643
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -572,7 +566,6 @@ GameObject:
   - component: {fileID: 3996845017784296646}
   - component: {fileID: 3996845017784296643}
   - component: {fileID: 3996845017784296641}
-  - component: {fileID: 3996845017784296640}
   - component: {fileID: 3996845017784296647}
   - component: {fileID: 3996845017784296651}
   m_Layer: 8
@@ -594,10 +587,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faffcd6b7177f484db1e64d511d99379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDistanceTolerance: 7
+  targetDistanceTolerance: 5
   targetBase: {fileID: 1398608905}
-  obsCheckScript: {fileID: 3996845017784296640}
+  obsCheckScript: {fileID: 3996845018747252193}
   tankController: {fileID: 3996845017784296647}
+  currentState: 0
+  enemyList: []
 --- !u!4 &3996845017954733505
 Transform:
   m_ObjectHideFlags: 0
@@ -688,6 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3996845018747252195}
+  - component: {fileID: 3996845018747252193}
   m_Layer: 0
   m_Name: cast_point
   m_TagString: Untagged
@@ -695,6 +691,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3996845018747252193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3996845018747252192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6156236d6a548e34390a7962394a137b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3.3
+  angle: 40
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 768
+  isObstaclesInRange: 0
+  obstaclesInRange:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &3996845018747252195
 Transform:
   m_ObjectHideFlags: 0
