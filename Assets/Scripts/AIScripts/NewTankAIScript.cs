@@ -8,29 +8,75 @@ public class NewTankAIScript : MonoBehaviour
     public float targetDistanceTolerance;
     public ArmyBaseScript targetBase;
 
+    public bool IsTargetAvailable
+    {
+        get { return targetBase != null; }
+    }
 
     [SerializeField]
     FOVObsCheckScript obsCheckScript;
     [SerializeField]
     TankScript tankController;
 
-    public enum STATE { NONE, APPROACHING_BASE, ENEMY_INSIGHT, ATTACKING_TROOPS, ATTACKING_BASE };
+    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE };
     STATE currentState;
 
     Vector2 dirToTarget;
-    List<TankScript> enemyList;
+    List<TankScript> enemyList = new List<TankScript>();
 
     // Start is called before the first frame update
     void Start()
     {
-        currentState = STATE.APPROACHING_BASE;
+        if (IsTargetAvailable)
+        { currentState = STATE.NO_TARGET; }
     }
 
     // Update is called once per frame
     void Update()
     {
-        CalculateTargetProperties();
-        MovementLogic();
+        CalculateState();
+        if (IsTargetAvailable)
+        {
+            CalculateTargetProperties();
+            MovementLogic();
+        }
+    }
+
+    void CalculateState()
+    {
+        if (!IsTargetAvailable)
+        {
+            currentState = STATE.NO_TARGET;
+        }
+        if (StateCheckForIsAppBase())
+        {
+            currentState = STATE.APPROACHING_BASE;
+        }
+        if (StateCheckForIsEneInSight())
+        {
+            currentState = STATE.ENEMY_IN_SIGHT;
+        }
+
+
+
+
+    }
+
+    //State change functions
+    bool StateCheckForIsAppBase()
+    {
+        if (IsTargetAvailable)
+        {
+            if (enemyList.Count == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    bool StateCheckForIsEneInSight()
+    {
+        return enemyList.Count > 0;
     }
 
     private void CalculateTargetProperties()

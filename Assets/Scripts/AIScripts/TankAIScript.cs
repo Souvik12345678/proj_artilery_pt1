@@ -161,6 +161,4 @@ public class TankAIScript : MonoBehaviour
         return (Vector2.Angle(transform.up, dirToTarget) < 10);
     }
 
-
-
 }
