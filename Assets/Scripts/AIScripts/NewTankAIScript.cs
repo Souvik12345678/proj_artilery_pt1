@@ -1,0 +1,126 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NewTankAIScript : MonoBehaviour
+{
+    //Inspector
+    public float targetDistanceTolerance;
+    public ArmyBaseScript targetBase;
+
+
+    [SerializeField]
+    FOVObsCheckScript obsCheckScript;
+    [SerializeField]
+    TankScript tankController;
+
+    public enum STATE { NONE, APPROACHING_BASE, ENEMY_INSIGHT, ATTACKING_TROOPS, ATTACKING_BASE };
+    STATE currentState;
+
+    Vector2 dirToTarget;
+    List<TankScript> enemyList;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        currentState = STATE.APPROACHING_BASE;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CalculateTargetProperties();
+        MovementLogic();
+    }
+
+    private void CalculateTargetProperties()
+    {
+        enemyList.Clear();//Clear enemy list
+        //Add enemies to enemy list from obstacle check script
+        if (obsCheckScript.isObstaclesInRange)//If obstacles in range
+        {
+            foreach (var item in obsCheckScript.obstaclesInRange)
+            {
+                if (item != null && item.layer == LayerMask.NameToLayer("Tank"))//If obstacles are enemy tanks
+                {
+                    enemyList.Add(item.GetComponent<TankScript>());
+                }
+            }
+        }
+    }
+
+    void MovementLogic()
+    {
+        if (currentState == STATE.APPROACHING_BASE)
+        {
+            TryDriveTank();
+
+        }
+        else if (currentState == STATE.ENEMY_INSIGHT)
+        {
+            TryFaceTowardsEnemy();
+        }
+        else if (currentState == STATE.ATTACKING_TROOPS)
+        {
+            TryShoot();
+        }
+    }
+
+    void TryDriveTank()
+    {
+        DriveTank();
+    }
+
+    bool DriveTank()
+    {
+        bool isMoving = false;
+        float distanceToTarget = Vector2.Distance(transform.position, targetBase.transform.position);
+
+        //If target too far
+        if (distanceToTarget > targetDistanceTolerance)
+        {
+            dirToTarget = (targetBase.transform.position - transform.position).normalized;
+            float dotProd = Vector2.Dot(transform.up, dirToTarget);
+
+            //move forward?
+            if (dotProd > 0)
+            {
+                tankController.Move(1, 0);
+            }
+            //move backward?
+            else
+            {
+                if (distanceToTarget > 2.5f)
+                {
+                    //Too far to reverse
+                    tankController.Move(1, 0);
+                }
+                else
+                {
+                    tankController.Move(-1, 0);
+                }
+            }
+
+            isMoving = true;
+        }
+        else//Reached target
+        {
+            //hostCarScript.Accelerate(false);
+            //hostCarScript.Reverse(false);
+        }
+
+        return isMoving;
+    }
+
+    void TryShoot()
+    {
+        tankController.Shoot();
+    }
+
+    void TryFaceTowardsEnemy()
+    {
+        Transform currTarget = enemyList[0].gameObject.transform;
+        Vector2 dirToTarget1 = (currTarget.transform.position - transform.position).normalized;
+        tankController.FaceToDirection(dirToTarget1);
+    }
+}
