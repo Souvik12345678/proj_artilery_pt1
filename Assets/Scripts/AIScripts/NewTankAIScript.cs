@@ -18,7 +18,7 @@ public class NewTankAIScript : MonoBehaviour
     [SerializeField]
     TankScript tankController;
 
-    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE ,TARGET_DESTROYED};
+    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE, TARGET_DESTROYED };
     public STATE currentState;
 
     Vector2 dirToTarget;
@@ -65,7 +65,7 @@ public class NewTankAIScript : MonoBehaviour
         if (StateCheckForAttBase())
         {
             currentState = STATE.ATTACKING_BASE;
-        
+
         }
         if (StateCheckForTargDest())
         {
@@ -126,7 +126,8 @@ public class NewTankAIScript : MonoBehaviour
             {
                 if (item != null && item.layer == LayerMask.NameToLayer("Tank"))//If obstacles are enemy tanks
                 {
-                    enemyList.Add(item.GetComponent<TankScript>());
+                    if (item.GetComponent<TankScript>().healthScript.currentHP > 0)
+                        enemyList.Add(item.GetComponent<TankScript>());
                 }
             }
         }
@@ -137,13 +138,16 @@ public class NewTankAIScript : MonoBehaviour
         if (currentState == STATE.APPROACHING_BASE)
         {
             TryDriveTank();
-
+            TryFaceTowardsEnemy(targetBase.transform.position);
         }
         else if (currentState == STATE.ENEMY_IN_SIGHT)
         {
             TryFaceTowardsEnemy();
         }
-        
+        else if (currentState == STATE.ATTACKING_BASE)
+        {
+        }
+
     }
 
     void AttackLogic()
@@ -161,6 +165,7 @@ public class NewTankAIScript : MonoBehaviour
     void TryDriveTank()
     {
         DriveTank();
+        RotateTank();
     }
 
     bool DriveTank()
@@ -197,11 +202,19 @@ public class NewTankAIScript : MonoBehaviour
         }
         else//Reached target
         {
-            //hostCarScript.Accelerate(false);
-            //hostCarScript.Reverse(false);
         }
 
         return isMoving;
+    }
+
+    void RotateTank()
+    {
+        //Turn logic
+        float angleToDir = Vector2.SignedAngle(transform.up, dirToTarget);
+
+        if (angleToDir < 0 && Mathf.Abs(angleToDir) > 10) { tankController.Move(0, -1); }
+        else if (angleToDir > 0 && Mathf.Abs(angleToDir) > 10) { tankController.Move(0, 1); }
+        else { }
     }
 
     void TryShoot()
@@ -220,5 +233,11 @@ public class NewTankAIScript : MonoBehaviour
     {
         Vector2 dirToTarget = (tank.transform.position - transform.position).normalized;
         return (Vector2.Angle(transform.up, dirToTarget) < 10);
+    }
+
+    void TryFaceTowardsEnemy(Vector3 targPos)
+    {
+        Vector2 dirToTarget1 = (targPos - transform.position).normalized;
+        tankController.FaceToDirection(dirToTarget1);
     }
 }

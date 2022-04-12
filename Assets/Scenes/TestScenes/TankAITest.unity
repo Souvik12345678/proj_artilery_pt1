@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &37385818 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3996845019220732863, guid: 5816581308d0df9428b161c0b5b2f423,
+    type: 3}
+  m_PrefabInstance: {fileID: 2113843162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2316a39a766d79f408bba188df9746b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1359475105
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +243,7 @@ PrefabInstance:
     - target: {fileID: 676555409666396924, guid: d6710cd636a0518428d87f5a03ead3c8,
         type: 3}
       propertyPath: godMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 676555409666396925, guid: d6710cd636a0518428d87f5a03ead3c8,
         type: 3}
@@ -312,10 +324,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3996845019220732857, guid: 5816581308d0df9428b161c0b5b2f423,
+        type: 3}
+      propertyPath: smokePrefab
+      value: 
+      objectReference: {fileID: 7895424968239010217, guid: c536fc62dac47974d908dbe3234191b5,
+        type: 3}
+    - target: {fileID: 3996845019220732857, guid: 5816581308d0df9428b161c0b5b2f423,
+        type: 3}
+      propertyPath: healthScript
+      value: 
+      objectReference: {fileID: 37385818}
     - target: {fileID: 3996845019220732858, guid: 5816581308d0df9428b161c0b5b2f423,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3996845019220732858, guid: 5816581308d0df9428b161c0b5b2f423,
         type: 3}
@@ -430,7 +453,7 @@ Transform:
   - {fileID: 3996845019265809836}
   - {fileID: 3996845018747252195}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!82 &3996845017784296646
 AudioSource:
@@ -548,12 +571,15 @@ MonoBehaviour:
   shootDelay: 2
   projectileSpeed: 20
   rotationSmoothing: 5
+  healthScript: {fileID: 3996845017784296641}
   firePoint: {fileID: 3996845019265809836}
   muzzleFlPrefab: {fileID: 8311641125568214051, guid: 281f1062895393b4e84c26b616de5763,
     type: 3}
   projectilePrefab: {fileID: 6472604771925686302, guid: 54f9315649e1b3244ad9553b99d087e5,
     type: 3}
   audioSrc: {fileID: 3996845017784296646}
+  smokePrefab: {fileID: 7895424968239010217, guid: c536fc62dac47974d908dbe3234191b5,
+    type: 3}
 --- !u!1 &3996845017784296650
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class TankScript : MonoBehaviour
     public float projectileSpeed;
     public float rotationSmoothing;
 
+
+    public HealthScript healthScript;
     [SerializeField]
     Transform firePoint;
     [SerializeField]
@@ -21,11 +23,29 @@ public class TankScript : MonoBehaviour
     GameObject projectilePrefab;
     [SerializeField]
     AudioSource audioSrc;
+    [SerializeField]
+    GameObject smokePrefab;
 
     bool targetAvailable;
     Vector2 targetDirection;
 
     bool isShooting;
+    bool isDestroyed;
+
+    private void OnEnable()
+    {
+        healthScript.OnHealthDepleted += OnTankDestroyed;
+    }
+
+    private void OnDisable()
+    {
+        healthScript.OnHealthDepleted -= OnTankDestroyed;
+    }
+
+    private void Awake()
+    {
+        isDestroyed = false;
+    }
 
     void Start()
     {
@@ -61,6 +81,11 @@ public class TankScript : MonoBehaviour
         targetDirection = dir;
     }
 
+    void TakeDamage()
+    {
+        healthScript.Decrement(25);
+    }
+
     IEnumerator ShootRoutine()
     {
         isShooting = true;
@@ -85,12 +110,20 @@ public class TankScript : MonoBehaviour
         isShooting = false;
     }
 
+    void OnTankDestroyed()
+    {
+        if (!isDestroyed)
+        {
+            Instantiate(smokePrefab, transform.position, Quaternion.identity);
+            isDestroyed = true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("tag_projectile"))
         {
-            //Debug.Log("Hit by projectile");
-            
+            TakeDamage();
         }
     }
 
