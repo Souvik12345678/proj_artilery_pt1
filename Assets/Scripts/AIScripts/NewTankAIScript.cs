@@ -103,7 +103,7 @@ public class NewTankAIScript : MonoBehaviour
     bool StateCheckForAttBase()
     {
         float dist = Vector2.Distance(targetBase.transform.position, transform.position);
-        if (dist < targetDistanceTolerance)
+        if (dist < targetDistanceTolerance && IsFacingTowardsObject(targetBase.transform))
         { return true; }
         return false;
     }
@@ -127,7 +127,10 @@ public class NewTankAIScript : MonoBehaviour
                 if (item != null && item.layer == LayerMask.NameToLayer("Tank"))//If obstacles are enemy tanks
                 {
                     if (item.GetComponent<TankScript>().healthScript.currentHP > 0)
-                        enemyList.Add(item.GetComponent<TankScript>());
+                    {
+                        if (!item.GetComponent<NewTankAIScript>().CompareTag(tag))//If target is not in our team
+                        { enemyList.Add(item.GetComponent<TankScript>()); }
+                    }
                 }
             }
         }
@@ -232,7 +235,13 @@ public class NewTankAIScript : MonoBehaviour
     bool IsFacingTowardsEnemy(TankScript tank)
     {
         Vector2 dirToTarget = (tank.transform.position - transform.position).normalized;
-        return (Vector2.Angle(transform.up, dirToTarget) < 10);
+        return (Vector2.Angle(transform.up, dirToTarget) < 5);
+    }
+
+    bool IsFacingTowardsObject(Transform target)
+    {
+        Vector2 dirToTarget = (target.position - transform.position).normalized;
+        return (Vector2.Angle(transform.up, dirToTarget) < 5);
     }
 
     void TryFaceTowardsEnemy(Vector3 targPos)

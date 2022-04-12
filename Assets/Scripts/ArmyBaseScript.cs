@@ -27,6 +27,8 @@ public class ArmyBaseScript : MonoBehaviour
     [SerializeField]
     Transform smokePrefab;
     [SerializeField]
+    GameObject whiteFlagPrefab;
+    [SerializeField]
     List<GameObject> tanksList;
 
     public bool isDestroyed;
@@ -91,6 +93,10 @@ public class ArmyBaseScript : MonoBehaviour
         {
             armyBaseRenderer.sprite = armyBaseDestroyedSp;
             Instantiate(smokePrefab, transform.position, Quaternion.identity);
+
+            Vector3 pos = transform.position + new Vector3(7,0);
+            Instantiate(whiteFlagPrefab);
+
             isDestroyed = true;
         }
     }
