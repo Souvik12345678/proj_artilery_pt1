@@ -94,8 +94,9 @@ public class ArmyBaseScript : MonoBehaviour
             armyBaseRenderer.sprite = armyBaseDestroyedSp;
             Instantiate(smokePrefab, transform.position, Quaternion.identity);
 
-            Vector3 pos = transform.position + new Vector3(7,0);
-            Instantiate(whiteFlagPrefab);
+            Vector3 pos = transform.position + new Vector3(1,0);
+            Instantiate(whiteFlagPrefab, pos, Quaternion.identity);
+            
 
             isDestroyed = true;
         }
