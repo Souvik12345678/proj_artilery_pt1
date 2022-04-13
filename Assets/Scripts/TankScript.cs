@@ -54,19 +54,23 @@ public class TankScript : MonoBehaviour
 
     void Update()
     {
-        RotateLogic();
+        if (!isDestroyed)
+            RotateLogic();
     }
 
     //forward 1 -> move forward, forward -1 -> movebackward,turn-> Rotate clockwise if -1 and counterclockwise if 1
     public void Move(int forward,int turn)
     {
-        transform.Translate(forward * speed * Time.deltaTime * transform.up, Space.World);
-        transform.Rotate(0, 0, turn * Time.deltaTime * rotateSpeed);
+        if (!isDestroyed)
+        {
+            transform.Translate(forward * speed * Time.deltaTime * transform.up, Space.World);
+            transform.Rotate(0, 0, turn * Time.deltaTime * rotateSpeed);
+        }
     }
 
     public void Shoot()
     {
-        if (!isShooting)
+        if (!isShooting && !isDestroyed)
         { StartCoroutine(nameof(ShootRoutine)); }
     }
 
@@ -123,6 +127,7 @@ public class TankScript : MonoBehaviour
     {
         if (collision.CompareTag("tag_projectile"))
         {
+            Destroy(collision.gameObject);//Destroy the projectile
             TakeDamage();
         }
     }

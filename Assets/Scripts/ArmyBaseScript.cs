@@ -5,6 +5,9 @@ using UnityEngine;
 public class ArmyBaseScript : MonoBehaviour
 {
     public int baseId;
+    public string selfTag;
+
+    public ArmyBaseScript targetBase;
 
     [SerializeField]
     bool troopDeployActive;
@@ -67,7 +70,7 @@ public class ArmyBaseScript : MonoBehaviour
     {
         for (; ; )
         {
-            if (troopDeployActive)
+            if (troopDeployActive && !isDestroyed)
                 DeployTroop();
             yield return new WaitForSeconds(1 / troopDeployPerSec);
         }
@@ -77,6 +80,11 @@ public class ArmyBaseScript : MonoBehaviour
     {
         GameObject tank = Instantiate(tankPrefab);
         tank.transform.position = spawnPoints[Random.Range(0, 2)].position;
+
+        tank.GetComponent<NewTankAIScript>().targetBase = this.targetBase;//Give ref. to target base
+
+        tank.tag = selfTag;//Set tag to self tag
+
         tanksList.Add(tank);
     }
 
@@ -94,10 +102,10 @@ public class ArmyBaseScript : MonoBehaviour
             armyBaseRenderer.sprite = armyBaseDestroyedSp;
             Instantiate(smokePrefab, transform.position, Quaternion.identity);
 
+            //Instantiate whiteflag
             Vector3 pos = transform.position + new Vector3(1,0);
             Instantiate(whiteFlagPrefab, pos, Quaternion.identity);
             
-
             isDestroyed = true;
         }
     }
