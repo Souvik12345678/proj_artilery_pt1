@@ -227,9 +227,12 @@ public class NewTankAIScript : MonoBehaviour
 
     void TryFaceTowardsEnemy()
     {
-        Transform currTarget = enemyList[0].gameObject.transform;
-        Vector2 dirToTarget1 = (currTarget.transform.position - transform.position).normalized;
-        tankController.FaceToDirection(dirToTarget1);
+        if (enemyList.Count > 0)
+        {
+            Transform currTarget = enemyList[0].gameObject.transform;
+            Vector2 dirToTarget1 = (currTarget.transform.position - transform.position).normalized;
+            tankController.FaceToDirection(dirToTarget1);
+        }
     }
 
     bool IsFacingTowardsEnemy(TankScript tank)

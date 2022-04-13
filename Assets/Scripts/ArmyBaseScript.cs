@@ -20,6 +20,8 @@ public class ArmyBaseScript : MonoBehaviour
     HealthScript selfHealth;
 
     [SerializeField]
+    Transform frontFaceTransform;
+    [SerializeField]
     ProgressBarScript progressBar;
     [SerializeField]
     SpriteRenderer armyBaseRenderer;
@@ -60,17 +62,11 @@ public class ArmyBaseScript : MonoBehaviour
         StartCoroutine(nameof(TroopsDeployRoutine));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator TroopsDeployRoutine()
     {
-        for (; ; )
+        while (true)
         {
-            if (troopDeployActive && !isDestroyed)
+            if (troopDeployActive && !isDestroyed && IsTargetBaseAlive())
                 DeployTroop();
             yield return new WaitForSeconds(1 / troopDeployPerSec);
         }
@@ -80,6 +76,8 @@ public class ArmyBaseScript : MonoBehaviour
     {
         GameObject tank = Instantiate(tankPrefab);
         tank.transform.position = spawnPoints[Random.Range(0, 2)].position;
+
+        tank.transform.rotation = Quaternion.LookRotation(Vector3.forward, frontFaceTransform.up);
 
         tank.GetComponent<NewTankAIScript>().targetBase = this.targetBase;//Give ref. to target base
 
@@ -108,6 +106,11 @@ public class ArmyBaseScript : MonoBehaviour
             
             isDestroyed = true;
         }
+    }
+
+    bool IsTargetBaseAlive()
+    {
+        return !targetBase.isDestroyed;
     }
 
 }

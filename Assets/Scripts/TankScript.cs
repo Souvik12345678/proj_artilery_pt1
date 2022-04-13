@@ -16,6 +16,8 @@ public class TankScript : MonoBehaviour
 
     public HealthScript healthScript;
     [SerializeField]
+    Collider2D selfCollider;
+    [SerializeField]
     Transform firePoint;
     [SerializeField]
     GameObject muzzleFlPrefab;
@@ -45,6 +47,7 @@ public class TankScript : MonoBehaviour
     private void Awake()
     {
         isDestroyed = false;
+        selfCollider = GetComponent<BoxCollider2D>();
     }
 
     void Start()
@@ -118,9 +121,11 @@ public class TankScript : MonoBehaviour
     {
         if (!isDestroyed)
         {
-            Instantiate(smokePrefab, transform.position, Quaternion.identity);
+            Instantiate(smokePrefab, transform.position, Quaternion.identity, transform);
+            selfCollider.enabled = false;
+            Destroy(gameObject, 7);//Self destroy in 7 secs.
             isDestroyed = true;
-        }
+        } 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

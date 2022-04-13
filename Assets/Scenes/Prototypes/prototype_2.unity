@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &295689763 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 676555409787186802, guid: d6710cd636a0518428d87f5a03ead3c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 732357779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &536023163 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 676555409787186802, guid: d6710cd636a0518428d87f5a03ead3c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1494047086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &613813234
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +260,11 @@ PrefabInstance:
       propertyPath: troopDeployPerSec
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 676555409666396898, guid: d6710cd636a0518428d87f5a03ead3c8,
+        type: 3}
+      propertyPath: frontFaceTransform
+      value: 
+      objectReference: {fileID: 295689763}
     - target: {fileID: 676555409666396899, guid: d6710cd636a0518428d87f5a03ead3c8,
         type: 3}
       propertyPath: m_Name
@@ -477,6 +494,11 @@ PrefabInstance:
       propertyPath: troopDeployPerSec
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 676555409666396898, guid: d6710cd636a0518428d87f5a03ead3c8,
+        type: 3}
+      propertyPath: frontFaceTransform
+      value: 
+      objectReference: {fileID: 536023163}
     - target: {fileID: 676555409666396899, guid: d6710cd636a0518428d87f5a03ead3c8,
         type: 3}
       propertyPath: m_Name
