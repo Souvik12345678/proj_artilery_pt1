@@ -103,7 +103,8 @@ public class ArmyBaseScript : MonoBehaviour
             //Instantiate whiteflag
             Vector3 pos = transform.position + new Vector3(1,0);
             Instantiate(whiteFlagPrefab, pos, Quaternion.identity);
-            
+
+            AllEventsScript.OnBaseDestroyed?.Invoke(baseId);
             isDestroyed = true;
         }
     }
