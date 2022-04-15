@@ -80,8 +80,10 @@ public class ArmyBaseScript : MonoBehaviour
         tank.transform.rotation = Quaternion.LookRotation(Vector3.forward, frontFaceTransform.up);
 
         tank.GetComponent<NewTankAIScript>().targetBase = this.targetBase;//Give ref. to target base
+        tank.GetComponent<NewTankAIScript>().parentBase = this;
 
         tank.tag = selfTag;//Set tag to self tag
+        
 
         tanksList.Add(tank);
     }

@@ -6,6 +6,7 @@ public class NewTankAIScript : MonoBehaviour
 {
     //Inspector
     public float targetDistanceTolerance;
+    public ArmyBaseScript parentBase;
     public ArmyBaseScript targetBase;
 
     public bool IsTargetAvailable
@@ -18,7 +19,7 @@ public class NewTankAIScript : MonoBehaviour
     [SerializeField]
     TankScript tankController;
 
-    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE, TARGET_DESTROYED };
+    public enum STATE { NONE, NO_TARGET, APPROACHING_BASE, ENEMY_IN_SIGHT, ATTACKING_TROOPS, ATTACKING_BASE, TARGET_DESTROYED, DEFEATED };
     public STATE currentState;
 
     Vector2 dirToTarget;
@@ -28,7 +29,7 @@ public class NewTankAIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (IsTargetAvailable)
+        if (!IsTargetAvailable)
         { currentState = STATE.NO_TARGET; }
     }
 
@@ -71,6 +72,10 @@ public class NewTankAIScript : MonoBehaviour
         {
             currentState = STATE.TARGET_DESTROYED;
         }
+        if (StateCheckForDefeated())
+        {
+            currentState = STATE.DEFEATED;
+        }
     }
 
     //----------
@@ -110,6 +115,10 @@ public class NewTankAIScript : MonoBehaviour
     bool StateCheckForTargDest()
     {
         return targetBase.isDestroyed;
+    }
+    bool StateCheckForDefeated()
+    {
+        return parentBase.isDestroyed;
     }
 
     //----------
