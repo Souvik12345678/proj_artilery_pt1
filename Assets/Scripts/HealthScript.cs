@@ -18,6 +18,7 @@ public class HealthScript : MonoBehaviour
     public bool IsAlive => currentHP > 0;
 
     public int currentHP;
+    public bool godMode;
 
     public AFunc OnHealthDepleted;
 
@@ -36,6 +37,9 @@ public class HealthScript : MonoBehaviour
     public void Decrement(uint value)
     {
         currentHP = Mathf.Clamp(currentHP - (int)value, 0, maxHP);
+
+        if (godMode && currentHP == 0) { currentHP = 1; }
+
         if (currentHP == 0)
         {
             OnHealthDepleted?.Invoke(); 

@@ -23,42 +23,51 @@ public class FOVObsCheckScript : MonoBehaviour
         InvokeRepeating(nameof(CheckObstacle), 0, 0.5f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     void CheckObstacle()
     {
         Array.Clear(obstaclesInRange, 0, obstaclesInRange.Length);
 
         isObstaclesInRange = false;
 
-        Collider2D[] collArray = Physics2D.OverlapCircleAll(transform.position, radius, targetMask);
+        //Collider2D[] collArray = Physics2D.OverlapCircleAll(transform.position, radius, targetMask);
+        Collider2D[] collArray = new Collider2D[3];
+        Physics2D.OverlapCircleNonAlloc(transform.position, radius, collArray, targetMask);
 
-        if (collArray.Length != 0)//If targets available
+        /*
+        for (int i = 0; i < obstaclesInRange.Length && i < collArray.Length; i++)
         {
-            /*
-            for (int i = 0; i < obstaclesInRange.Length && i < collArray.Length; i++)
-            {
-                obstaclesInRange[i] = collArray[i].gameObject;
-            }*/
+            obstaclesInRange[i] = collArray[i].gameObject;
+        }*/
 
-            int j = 0;
-            foreach (var item in collArray)
+        /*
+        int j = 0;
+        foreach (var item in collArray)
+        {
+            var directionToTarget = (item.transform.position - transform.position).normalized;
+            if (Vector2.Angle(transform.up, directionToTarget) < angle)//If target in fov
+            { 
+                obstaclesInRange[j] = item.gameObject;//Add them to obstaclesinrange Array
+                j++;
+                isObstaclesInRange = true;
+            }
+        }
+        */
+
+        int j = 0;
+        for (int i = 0; i < collArray.Length && j < 3; i++)
+        {
+            if (collArray[i] != null)
             {
-                var directionToTarget = (item.transform.position - transform.position).normalized;
+                var directionToTarget = (collArray[i].transform.position - transform.position).normalized;
                 if (Vector2.Angle(transform.up, directionToTarget) < angle)//If target in fov
                 {
-                    obstaclesInRange[j] = item.gameObject;//Add them to obstaclesinrange Array
+                    obstaclesInRange[j] = collArray[i].gameObject;//Add them to obstaclesinrange Array
                     j++;
                     isObstaclesInRange = true;
                 }
             }
+
         }
     }
-
 
 }
