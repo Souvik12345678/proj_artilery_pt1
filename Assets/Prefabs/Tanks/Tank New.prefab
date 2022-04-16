@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3.3
   angle: 40
+  collisionChecksEverySec: 1
   targetMask:
     serializedVersion: 2
     m_Bits: 768
@@ -360,6 +361,7 @@ MonoBehaviour:
   projectileSpeed: 20
   rotationSmoothing: 5
   healthScript: {fileID: 3785910759580908178}
+  selfCollider: {fileID: 0}
   firePoint: {fileID: 3785910757579039743}
   muzzleFlPrefab: {fileID: 8311641125568214051, guid: 281f1062895393b4e84c26b616de5763,
     type: 3}
@@ -381,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDistanceTolerance: 5
+  parentBase: {fileID: 0}
   targetBase: {fileID: 0}
   obsCheckScript: {fileID: 3785910758232863666}
   tankController: {fileID: 3785910759580908180}

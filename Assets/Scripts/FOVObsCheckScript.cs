@@ -7,11 +7,15 @@ public class FOVObsCheckScript : MonoBehaviour
     public float radius;
     public float angle;
     [SerializeField]
+    float collisionChecksEverySec;
+    [SerializeField]
     LayerMask targetMask;
 
     public bool isObstaclesInRange;
 
     public GameObject[] obstaclesInRange;
+
+    float timer;
 
     private void Awake()
     {
@@ -20,7 +24,19 @@ public class FOVObsCheckScript : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(CheckObstacle), 0, 0.5f);
+        //InvokeRepeating(nameof(CheckObstacle), 0, 0.5f);
+        CheckObstacle();
+    }
+
+    private void FixedUpdate()
+    {
+        if (timer <= 0)
+        {
+            CheckObstacle();
+            timer = 1 / collisionChecksEverySec;//Reset timer
+            //Debug.Log("Collision Check");
+        }
+        timer -= Time.fixedDeltaTime;
     }
 
     void CheckObstacle()

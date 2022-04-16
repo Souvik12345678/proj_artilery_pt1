@@ -83,7 +83,6 @@ public class ArmyBaseScript : MonoBehaviour
         tank.GetComponent<NewTankAIScript>().parentBase = this;
 
         tank.tag = selfTag;//Set tag to self tag
-        
 
         tanksList.Add(tank);
     }

@@ -50,29 +50,28 @@ public class NewTankAIScript : MonoBehaviour
         if (!IsTargetAvailable)
         {
             currentState = STATE.NO_TARGET;
-        }
-        if (StateCheckForIsAppBase())
+        }else if (StateCheckForIsAppBase())
         {
             currentState = STATE.APPROACHING_BASE;
         }
-        if (StateCheckForIsEneInSight())
+        else if (StateCheckForIsEneInSight())
         {
             currentState = STATE.ENEMY_IN_SIGHT;
         }
-        if (StateCheckForAttackingTroops())
+        else if (StateCheckForAttackingTroops())
         {
             currentState = STATE.ATTACKING_TROOPS;
         }
-        if (StateCheckForAttBase())
+        else if (StateCheckForAttBase())
         {
             currentState = STATE.ATTACKING_BASE;
 
         }
-        if (StateCheckForTargDest())
+        else if (StateCheckForTargDest())
         {
             currentState = STATE.TARGET_DESTROYED;
         }
-        if (StateCheckForDefeated())
+        else if (StateCheckForDefeated())
         {
             currentState = STATE.DEFEATED;
         }
