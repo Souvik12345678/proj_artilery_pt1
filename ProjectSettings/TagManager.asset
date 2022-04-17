@@ -50,6 +50,9 @@ TagManager:
   - name: layer_armybase
     uniqueID: 4057985015
     locked: 0
+  - name: layer_tanks
+    uniqueID: 4093373215
+    locked: 0
   - name: layer_play
     uniqueID: 1334043625
     locked: 0
