@@ -135,7 +135,7 @@ public class NewTankAIScript : MonoBehaviour
             {
                 if (item != null && item.layer == LayerMask.NameToLayer("Tank"))//If obstacles are enemy tanks
                 {
-                    if (item.GetComponent<TankScript>().healthScript.currentHP > 0)
+                    if (item.GetComponent<TankScript>().GetHealthScript().currentHP > 0)
                     {
                         if (!item.GetComponent<NewTankAIScript>().CompareTag(tag))//If target is not in our team
                         { enemyList.Add(item.GetComponent<TankScript>()); }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealthScript))]
 public class TankScript : MonoBehaviour
 {
     public Vector2 direction;
@@ -13,8 +14,6 @@ public class TankScript : MonoBehaviour
     public float projectileSpeed;
     public float rotationSmoothing;
 
-
-    public HealthScript healthScript;
     [SerializeField]
     Collider2D selfCollider;
     [SerializeField]
@@ -34,6 +33,8 @@ public class TankScript : MonoBehaviour
     bool isShooting;
     bool isDestroyed;
 
+    HealthScript healthScript;
+
     private void OnEnable()
     {
         healthScript.OnHealthDepleted += OnTankDestroyed;
@@ -48,6 +49,7 @@ public class TankScript : MonoBehaviour
     {
         isDestroyed = false;
         selfCollider = GetComponent<BoxCollider2D>();
+        healthScript = GetComponent<HealthScript>();
     }
 
     void Start()
@@ -126,6 +128,11 @@ public class TankScript : MonoBehaviour
             Destroy(gameObject, 7);//Self destroy in 7 secs.
             isDestroyed = true;
         } 
+    }
+
+    public HealthScript GetHealthScript()
+    {
+        return healthScript;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
