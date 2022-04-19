@@ -35,17 +35,21 @@ public class NewTankScript : MonoBehaviour
     {
         if (!isDestroyed)
         {
-            float angle = Vector2.Angle(tankBodyTransform.up, muzzleTransform.up);
-            float newAngle = angle + (-turn * Time.deltaTime * muzzRotateSpeed);
-
+            //float angle = Vector2.SignedAngle(tankBodyTransform.up, muzzleTransform.up);
+            //float newAngle = angle + (-turn * Time.deltaTime * muzzRotateSpeed);
             //muzzleTransform.Rotate(0, 0, -turn * Time.deltaTime * muzzRotateSpeed, Space.Self);
+            //Debug.Log(angle);
 
-            if (newAngle < 90)
+            muzzleTransform.Rotate(0, 0, -turn * Time.deltaTime * muzzRotateSpeed, Space.Self);
+            float newAngle = Vector2.SignedAngle(tankBodyTransform.up, muzzleTransform.up);
+            if (newAngle > 90)
             {
-                muzzleTransform.Rotate(0, 0, -turn * Time.deltaTime * muzzRotateSpeed, Space.Self);
+                muzzleTransform.localRotation = Quaternion.Euler(0, 0, 90);
             }
-
-            //Debug.Log(muzzleTransform.localRotation.eulerAngles);
+            if (newAngle < -90)
+            {
+                muzzleTransform.localRotation = Quaternion.Euler(0, 0, -90);
+            }
         }
     }
 
