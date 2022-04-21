@@ -49,6 +49,14 @@ public class StateMachine
 
     public void AddState(State state)
     {
+        for (int i = 0; i < 3; i++)
+        {
+            if (currentStates[i] != null)
+            {
+                if (currentStates[i].GetType() == state.GetType())
+                    return;//State type already exists return
+            }
+        }
         stackPtr = (stackPtr + 1) % 3;//loop values within 0-2
         currentStates[stackPtr] = state;
         state.OnEnter();
