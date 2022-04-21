@@ -1,5 +1,6 @@
 ﻿public class State
 {
+    public string name;
     public StateMachine stateMachineInstance;
 
     public virtual void OnEnter()

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(HealthScript))]
 public class NewTankScript : MonoBehaviour
 {
     public float driveSpeed;
@@ -7,8 +8,20 @@ public class NewTankScript : MonoBehaviour
     public float muzzRotateSpeed;
     public bool isDestroyed;
 
-    Transform tankBodyTransform;
-    Transform muzzleTransform;
+    public Transform tankBodyTransform;
+    public Transform muzzleTransform;
+
+    HealthScript healthScript;
+
+    private void OnEnable()
+    {
+        healthScript.OnHealthDepleted += OnTankDestroyed;
+    }
+
+    private void OnDisable()
+    {
+        healthScript.OnHealthDepleted -= OnTankDestroyed;
+    }
 
     private void Awake()
     {
@@ -51,6 +64,14 @@ public class NewTankScript : MonoBehaviour
                 muzzleTransform.localRotation = Quaternion.Euler(0, 0, -90);
             }
         }
+    }
+
+    public HealthScript GetHealthScript()
+    { return healthScript; }
+
+    void OnTankDestroyed()
+    {
+        Debug.Log("Tank Destroyed");   
     }
 
 }
