@@ -9,12 +9,12 @@ public class TankAIScript_pt1 : MonoBehaviour
     [SerializeField]
     FOVObsCheckScript obsCheckScript;
 
-    StateMachine stateMachine;
-    List<NewTankScript> enemiesInSight;
+    TankAIStateMachine stateMachine;
+    public List<NewTankScript> enemiesInSight;
 
     Dictionary<string, State> behaviourStates;
 
-    string currentStateName;
+    public string currentStateName;
 
     private void Awake()
     {
@@ -36,10 +36,7 @@ public class TankAIScript_pt1 : MonoBehaviour
         CalculateState();
         CalculateTargetProperties();
 
-        if (enemiesInSight.Count > 0)
-        {
-            ChangeState("ATTK_ENEMIES");
-        }
+        currentStateName = stateMachine.GetCurrentStateName();
 
         stateMachine.Update();
     }
@@ -77,13 +74,9 @@ public class TankAIScript_pt1 : MonoBehaviour
 
     void InitStateMachine()
     {
-        stateMachine = new StateMachine();
+        stateMachine = new TankAIStateMachine(this);
 
-        //var state1 = new ApproachingBaseState(stateMachine, this);
-        var state1 = new ApproachingBaseAndMuzzleAim(stateMachine, this);
-
-
-        stateMachine.Initialize(state1);
+        stateMachine.Initialize("APPR_BASE");
 
         stateMachine.Start();
 

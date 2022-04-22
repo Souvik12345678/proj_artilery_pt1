@@ -1,14 +1,28 @@
-﻿/// <summary>
+﻿using System.Collections.Generic;
+
+/// <summary>
 /// Simulates a state machine, To use the state machine user needs to call its Start, Update, Exit functions
+/// For concurrent states use inheritance :-)
 /// </summary>
 public class StateMachine
 {
-    State currentState;
+    protected State currentState;
+    protected string currentStateName;
+    protected Dictionary<string, State> stateDict;
 
-    public void Initialize(State startingState)
+    public StateMachine()
     {
-        currentState = startingState;
-        startingState.OnEnter();
+        stateDict = new Dictionary<string, State>();
+    }
+
+    public void Initialize(string stateName)
+    {
+        if (stateDict.ContainsKey(stateName))
+        {
+            currentStateName = stateName;
+            currentState = stateDict[stateName];
+            currentState.OnEnter();
+        }
     }
 
     public void Start()
@@ -60,5 +74,18 @@ public class StateMachine
         }
     }
 
+    public void ChangeState(string stateName)
+    {
+        if (stateDict.ContainsKey(stateName) && stateName != currentStateName)
+        {
+            currentState.OnExit();
+            currentStateName = stateName;
+            currentState = stateDict[stateName];
+            currentState.OnEnter();
+        }
+    }
+
+    public string GetCurrentStateName()
+    { return currentStateName; }
 
 }

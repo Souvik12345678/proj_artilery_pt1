@@ -157,7 +157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &26049591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetBase: {fileID: 1463151748}
   obsCheckScript: {fileID: 26049593}
+  enemiesInSight: []
+  currentStateName: 
 --- !u!114 &26049592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetBase: {fileID: 1463151748}
   obsCheckScript: {fileID: 1577338821}
+  enemiesInSight: []
+  currentStateName: 
 --- !u!114 &398214643
 MonoBehaviour:
   m_ObjectHideFlags: 0

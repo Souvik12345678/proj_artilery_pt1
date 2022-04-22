@@ -129,11 +129,11 @@ public class MuzzleAimState : State
 
 }
 
-public class ApproachingBaseAndMuzzleAim : ApproachingBaseState
+public class ApproachingBaseAndMuzzleAimState : ApproachingBaseState
 {
     Vector2 faceDir, dirToTarget;
     
-    public ApproachingBaseAndMuzzleAim(StateMachine stateMachine, TankAIScript_pt1 tankAIScript) : base(stateMachine, tankAIScript)
+    public ApproachingBaseAndMuzzleAimState(StateMachine stateMachine, TankAIScript_pt1 tankAIScript) : base(stateMachine, tankAIScript)
     {
 
     }
@@ -144,14 +144,28 @@ public class ApproachingBaseAndMuzzleAim : ApproachingBaseState
         Transform currTarget = tankAIScript.targetBase.transform;
         dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
         TryFaceTowardsDirection();
+
+        CheckForEnemy();
+    }
+
+    void CheckForEnemy()
+    {
+        if (tankAIScript.enemiesInSight.Count > 0)
+        {
+            stateMachineInstance.ChangeState("ATTK_ENEM");
+        }
+    
     }
 
     void TryFaceTowardsDirection()
     {
         float angle = Vector2.SignedAngle(dirToTarget, tankController.muzzleTransform.up);
-        if (angle > 0)
-        { tankController.MuzzleRotate(1); }
-        else { tankController.MuzzleRotate(-1); }
+        if (Mathf.Abs(angle) > 7)
+        {
+            if (angle > 0)
+            { tankController.MuzzleRotate(1); }
+            else { tankController.MuzzleRotate(-1); }
+        }
     }
 
 }
@@ -182,8 +196,21 @@ public class AttackingTroopsState : State
     public override void OnUpdate()
     {
         base.OnUpdate();
+        Transform currTarget = tankAIScript.targetBase.transform;
+        dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
+        TryFaceTowardsDirection();
 
-       
+    }
+
+    void TryFaceTowardsDirection()
+    {
+        float angle = Vector2.SignedAngle(dirToTarget, tankController.muzzleTransform.up);
+        if (Mathf.Abs(angle) > 7)
+        {
+            if (angle > 0)
+            { tankController.MuzzleRotate(1); }
+            else { tankController.MuzzleRotate(-1); }
+        }
     }
 
     public override void OnExit()
