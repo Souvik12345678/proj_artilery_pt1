@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class ApproachingBaseState : State
 {
-    private TankAIScript_pt1 tankAIScript;
-    NewTankScript tankController;
-    Transform tankTransform;
+    protected TankAIScript_pt1 tankAIScript;
+    protected NewTankScript tankController;
+    protected Transform selfTransform;
 
     float targetDistanceTolerance = 7;
     Vector2 dirToTarget;
@@ -21,7 +21,7 @@ public class ApproachingBaseState : State
         name = "APPR_BASE";
         stateMachineInstance = machine;
         this.tankAIScript = tankAIScript;
-        tankTransform = tankAIScript.transform;
+        selfTransform = tankAIScript.transform;
         tankController = tankAIScript.GetComponent<NewTankScript>();
         targetBase = tankAIScript.targetBase;
     }
@@ -45,13 +45,13 @@ public class ApproachingBaseState : State
     bool DriveTank()
     {
         bool isMoving = false;
-        float distanceToTarget = Vector2.Distance(tankTransform.position, targetBase.transform.position);
+        float distanceToTarget = Vector2.Distance(selfTransform.position, targetBase.transform.position);
 
         //If target too far
         if (distanceToTarget > targetDistanceTolerance)
         {
-            dirToTarget = (targetBase.transform.position - tankTransform.position).normalized;
-            float dotProd = Vector2.Dot(tankTransform.up, dirToTarget);
+            dirToTarget = (targetBase.transform.position - selfTransform.position).normalized;
+            float dotProd = Vector2.Dot(selfTransform.up, dirToTarget);
 
             //move forward?
             if (dotProd > 0)
@@ -88,7 +88,7 @@ public class ApproachingBaseState : State
 /// </summary>
 public class MuzzleAimState : State
 {
-    private TankAIScript_pt1 tankAIScript;
+    protected TankAIScript_pt1 tankAIScript;
     NewTankScript tankController;
     Transform selfTransform;
     Vector2 faceDir, dirToTarget;
@@ -125,6 +125,33 @@ public class MuzzleAimState : State
     public override void OnExit()
     {
         base.OnExit();
+    }
+
+}
+
+public class ApproachingBaseAndMuzzleAim : ApproachingBaseState
+{
+    Vector2 faceDir, dirToTarget;
+    
+    public ApproachingBaseAndMuzzleAim(StateMachine stateMachine, TankAIScript_pt1 tankAIScript) : base(stateMachine, tankAIScript)
+    {
+
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        Transform currTarget = tankAIScript.targetBase.transform;
+        dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
+        TryFaceTowardsDirection();
+    }
+
+    void TryFaceTowardsDirection()
+    {
+        float angle = Vector2.SignedAngle(dirToTarget, tankController.muzzleTransform.up);
+        if (angle > 0)
+        { tankController.MuzzleRotate(1); }
+        else { tankController.MuzzleRotate(-1); }
     }
 
 }

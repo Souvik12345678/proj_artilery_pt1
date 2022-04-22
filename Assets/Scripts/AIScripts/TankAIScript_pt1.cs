@@ -12,6 +12,20 @@ public class TankAIScript_pt1 : MonoBehaviour
     StateMachine stateMachine;
     List<NewTankScript> enemiesInSight;
 
+    Dictionary<string, State> behaviourStates;
+
+    string currentStateName;
+
+    private void Awake()
+    {
+        enemiesInSight = new List<NewTankScript>();
+        behaviourStates = new Dictionary<string, State>();
+
+        behaviourStates.Add("APPR_BASE", new ApproachingBaseState(stateMachine, this));
+        behaviourStates.Add("ATTK_ENEMIES", new AttackingTroopsState(stateMachine, this));
+        behaviourStates.Add("NONE", new State());
+    }
+
     private void Start()
     {
         InitStateMachine();
@@ -21,6 +35,11 @@ public class TankAIScript_pt1 : MonoBehaviour
     {
         CalculateState();
         CalculateTargetProperties();
+
+        if (enemiesInSight.Count > 0)
+        {
+            ChangeState("ATTK_ENEMIES");
+        }
 
         stateMachine.Update();
     }
@@ -60,14 +79,19 @@ public class TankAIScript_pt1 : MonoBehaviour
     {
         stateMachine = new StateMachine();
 
-        var state1 = new ApproachingBaseState(stateMachine, this);
-        var state2 = new MuzzleAimState(stateMachine, this);
+        //var state1 = new ApproachingBaseState(stateMachine, this);
+        var state1 = new ApproachingBaseAndMuzzleAim(stateMachine, this);
+
 
         stateMachine.Initialize(state1);
-        stateMachine.AddState(state2);
 
         stateMachine.Start();
 
+    }
+
+    void ChangeState(string stateName)
+    {
+        stateMachine.ChangeState(behaviourStates[stateName]);
     }
 
 }

@@ -3,18 +3,11 @@
 /// </summary>
 public class StateMachine
 {
-    State[] currentStates = new State[3];//Can hold 3 states concurrently
-    int stackPtr = 0;
-
-    public int stackTop
-    {
-        get { return stackPtr; }
-    }
+    State currentState;
 
     public void Initialize(State startingState)
     {
-        currentStates[0] = startingState;
-        stackPtr = 0;
+        currentState = startingState;
         startingState.OnEnter();
     }
 
@@ -25,28 +18,15 @@ public class StateMachine
 
     public void Update()
     {
-        //Update states
-        for (int i = 0; i < 3; i++)
-        {
-            if (currentStates[i] != null)
-            {
-                currentStates[i].OnUpdate();
-            }
-        }
+        currentState.OnUpdate();
     }
 
     public void Exit()
     {
-       // Update states
-        for (int i = 0; i < 3; i++)
-        {
-            if (currentStates[i] != null)
-            {
-                currentStates[i].OnExit();
-            }
-        }
+        currentState.OnExit();
     }
 
+    /*
     public void AddState(State state)
     {
         for (int i = 0; i < 3; i++)
@@ -68,20 +48,16 @@ public class StateMachine
         state.OnEnter();
     }
 
-    public void ChangeState(State newState)//
-    {
-        //Cleanup old states
-        for (int i = 0; i < 3; i++)
-        {
-            if (currentStates[i] != null)
-            {
-                currentStates[i].OnExit();
-                currentStates[i] = null;
-            }
-        }
+    */
 
-        currentStates[0] = newState;
-        newState.OnEnter();
+    public void ChangeState(State newState)//Change state
+    {
+        if (currentState.GetType() != newState.GetType())
+        {
+            currentState.OnExit();
+            currentState = newState;
+            newState.OnEnter();
+        }
     }
 
 

@@ -27,6 +27,7 @@ public class NewTankScript : MonoBehaviour
     {
         tankBodyTransform = transform.GetChild(0);
         muzzleTransform = transform.Find("tank_body/muzzle");
+        healthScript = GetComponent<HealthScript>();
     }
 
     /// <summary>
