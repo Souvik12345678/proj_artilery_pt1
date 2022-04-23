@@ -12,4 +12,7 @@ public class CommonAssetScrObj : ScriptableObject
     public GameObject TANK_1;
     public GameObject TANK_2;
     public GameObject TANK_3;
+
+    //Audio clips
+    public AudioClip TankShoot;
 }

@@ -16,6 +16,10 @@ MonoBehaviour:
     type: 3}
   WhiteFlagPrefab: {fileID: 1093767674789025785, guid: 3a29b3a8727573940bd843ebb0f2e163,
     type: 3}
+  MuzzleFlashPrefab: {fileID: 8311641125568214051, guid: 281f1062895393b4e84c26b616de5763,
+    type: 3}
+  ProjectilePrefab: {fileID: 6472604771925686302, guid: 54f9315649e1b3244ad9553b99d087e5,
+    type: 3}
   TANK_1: {fileID: 9045913903106134308, guid: 2d05ef97f1df75940b82a0d7edc84ed2, type: 3}
   TANK_2: {fileID: 8729219243800800772, guid: 6cfdbfdb172490944a6e8879e35e3669, type: 3}
   TANK_3: {fileID: 7301625732966374326, guid: ec0f36e003b16154f998d826ce565761, type: 3}

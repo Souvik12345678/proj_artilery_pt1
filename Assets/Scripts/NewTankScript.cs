@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(HealthScript))]
 public class NewTankScript : MonoBehaviour
@@ -6,12 +7,21 @@ public class NewTankScript : MonoBehaviour
     public float driveSpeed;
     public float rotateSpeed;
     public float muzzRotateSpeed;
+    public float shootDelay;
+    public float projectileSpeed;
     public bool isDestroyed;
 
     public Transform tankBodyTransform;
     public Transform muzzleTransform;
+    [SerializeField]
+    Transform firePoint;
+    [SerializeField]
+    CommonAssetScrObj commonAsset;
+    AudioSource audioSrc;
+
 
     HealthScript healthScript;
+    bool isShooting;
 
     private void OnEnable()
     {
@@ -28,6 +38,7 @@ public class NewTankScript : MonoBehaviour
         tankBodyTransform = transform.GetChild(0);
         muzzleTransform = transform.Find("tank_body/muzzle");
         healthScript = GetComponent<HealthScript>();
+        audioSrc = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -67,12 +78,46 @@ public class NewTankScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shoot!
+    /// </summary>
+    public void Shoot()
+    {
+        if (!isShooting && !isDestroyed)
+        { StartCoroutine(nameof(ShootRoutine)); }
+    }
+
     public HealthScript GetHealthScript()
     { return healthScript; }
 
     void OnTankDestroyed()
     {
         Debug.Log("Tank Destroyed");   
+    }
+
+    IEnumerator ShootRoutine()
+    {
+        isShooting = true;
+
+        //Instantiate projectile 
+        GameObject proj = Instantiate(commonAsset.ProjectilePrefab, firePoint.position, Quaternion.identity);
+        proj.GetComponent<Rigidbody2D>().velocity = firePoint.up * projectileSpeed;
+        Destroy(proj, 3.0f);//Destroy projectile after 3 seconds
+
+        //Instantiate muzzle flash
+        Quaternion rot = firePoint.rotation * Quaternion.Euler(new Vector3(0, 0, 90));
+        GameObject mzlFlash = Instantiate(commonAsset.MuzzleFlashPrefab, firePoint.position, rot);
+        float size = Random.Range(0.6f, 0.9f);
+        mzlFlash.transform.localScale = new Vector2(size, size);
+        Destroy(mzlFlash, 0.05f);
+
+        //play shoot audio
+        audioSrc.Play();
+        //wait before shooting again
+        yield return new WaitForSeconds(shootDelay + Random.Range(-1f, 1f));
+
+        isShooting = false;
+
     }
 
 }

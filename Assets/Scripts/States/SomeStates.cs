@@ -196,21 +196,40 @@ public class AttackingTroopsState : State
     public override void OnUpdate()
     {
         base.OnUpdate();
-        Transform currTarget = tankAIScript.targetBase.transform;
+        Transform currTarget = tankAIScript.enemiesInSight[0].transform;
         dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
         TryFaceTowardsDirection();
+        TryShoot();
 
     }
 
     void TryFaceTowardsDirection()
     {
         float angle = Vector2.SignedAngle(dirToTarget, tankController.muzzleTransform.up);
-        if (Mathf.Abs(angle) > 7)
+        if (Mathf.Abs(angle) > 2)
         {
             if (angle > 0)
             { tankController.MuzzleRotate(1); }
             else { tankController.MuzzleRotate(-1); }
         }
+    }
+
+    void TryShoot()
+    {
+        if (IsFacingTarget(tankAIScript.enemiesInSight[0].transform))
+        {
+            tankController.Shoot();
+        }
+    
+    }
+
+    bool IsFacingTarget(Transform targTrans)
+    {
+        Vector2 dirToT = (targTrans.position - selfTransform.position).normalized;
+        float angle = Vector2.Angle(dirToT, tankController.muzzleTransform.up);
+        if (angle < 2)
+        { return true; }
+        return false;
     }
 
     public override void OnExit()
