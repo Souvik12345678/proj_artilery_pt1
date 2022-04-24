@@ -333,3 +333,10 @@ public class GameOverState : State
 
 }
 
+public class DestroyedState :State
+{
+    
+
+
+}
+

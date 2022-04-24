@@ -22,6 +22,7 @@ public class NewTankScript : MonoBehaviour
 
     HealthScript healthScript;
     bool isShooting;
+    Collider2D selfCollider;
 
     private void OnEnable()
     {
@@ -39,6 +40,7 @@ public class NewTankScript : MonoBehaviour
         muzzleTransform = transform.Find("tank_body/muzzle");
         healthScript = GetComponent<HealthScript>();
         audioSrc = GetComponent<AudioSource>();
+        selfCollider = GetComponent<BoxCollider2D>();
     }
 
     /// <summary>
@@ -97,7 +99,13 @@ public class NewTankScript : MonoBehaviour
 
     void OnTankDestroyed()
     {
-        Debug.Log("Tank Destroyed");   
+        if (!isDestroyed)
+        {
+            Instantiate(commonAsset.SmokePrefab, transform.position, Quaternion.identity, transform);
+            selfCollider.enabled = false;
+            isDestroyed = true;
+            StartCoroutine(nameof(DissolveRoutine));
+        }
     }
 
     IEnumerator ShootRoutine()
@@ -123,6 +131,19 @@ public class NewTankScript : MonoBehaviour
 
         isShooting = false;
 
+    }
+
+    IEnumerator DissolveRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        float scale = transform.localScale.x;
+        while (scale > 0.001f)
+        {
+            scale *= 0.93f;
+            transform.localScale = new Vector3(scale, scale, 1);
+            yield return null;
+        }
+        Destroy(gameObject);//Self destroy 0 secs.
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
