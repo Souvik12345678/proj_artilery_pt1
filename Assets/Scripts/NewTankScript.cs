@@ -90,6 +90,11 @@ public class NewTankScript : MonoBehaviour
     public HealthScript GetHealthScript()
     { return healthScript; }
 
+    void TakeDamage()
+    {
+        healthScript.Decrement(25);
+    }
+
     void OnTankDestroyed()
     {
         Debug.Log("Tank Destroyed");   
@@ -118,6 +123,15 @@ public class NewTankScript : MonoBehaviour
 
         isShooting = false;
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("tag_projectile"))
+        {
+            Destroy(collision.gameObject);//Destroy the projectile
+            TakeDamage();
+        }
     }
 
 }

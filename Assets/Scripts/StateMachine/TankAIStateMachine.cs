@@ -6,6 +6,8 @@ public class TankAIStateMachine : StateMachine
     {
         stateDict.Add("APPR_BASE", new ApproachingBaseAndMuzzleAimState(this, tankAIScript));
         stateDict.Add("ATTK_ENEM", new AttackingTroopsState(this, tankAIScript));
+        stateDict.Add("ARRIV_BASE", new ArrivedAtTargetBase(this, tankAIScript));
+        stateDict.Add("GAME_OVR", new GameOverState(this));
     }
 
 }

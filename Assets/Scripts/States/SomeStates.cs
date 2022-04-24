@@ -132,20 +132,22 @@ public class MuzzleAimState : State
 public class ApproachingBaseAndMuzzleAimState : ApproachingBaseState
 {
     Vector2 faceDir, dirToTarget;
+    Transform targetBaseTransform;
     
     public ApproachingBaseAndMuzzleAimState(StateMachine stateMachine, TankAIScript_pt1 tankAIScript) : base(stateMachine, tankAIScript)
     {
-
+        targetBaseTransform = tankAIScript.targetBase.transform;
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
-        Transform currTarget = tankAIScript.targetBase.transform;
-        dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
+        dirToTarget = (targetBaseTransform.position - selfTransform.position).normalized;
         TryFaceTowardsDirection();
 
         CheckForEnemy();
+
+        CheckDistance();
     }
 
     void CheckForEnemy()
@@ -153,6 +155,17 @@ public class ApproachingBaseAndMuzzleAimState : ApproachingBaseState
         if (tankAIScript.enemiesInSight.Count > 0)
         {
             stateMachineInstance.ChangeState("ATTK_ENEM");
+        }
+    
+    }
+
+    void CheckDistance()
+    {
+        if (Vector2.Distance(selfTransform.position, targetBaseTransform.position) < 8)
+        {
+            //reached target base 
+            stateMachineInstance.ChangeState("ARRIV_BASE");
+        
         }
     
     }
@@ -196,11 +209,17 @@ public class AttackingTroopsState : State
     public override void OnUpdate()
     {
         base.OnUpdate();
-        Transform currTarget = tankAIScript.enemiesInSight[0].transform;
-        dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
-        TryFaceTowardsDirection();
-        TryShoot();
-
+        if (tankAIScript.enemiesInSight.Count > 0)
+        {
+            Transform currTarget = tankAIScript.enemiesInSight[0].transform;
+            dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
+            TryFaceTowardsDirection();
+            TryShoot();
+        }
+        else
+        {
+            stateMachineInstance.ChangeState("APPR_BASE");
+        }
     }
 
     void TryFaceTowardsDirection()
@@ -236,6 +255,81 @@ public class AttackingTroopsState : State
     {
         base.OnExit();
     }
+
+}
+
+public class ArrivedAtTargetBase : State
+{
+    TankAIScript_pt1 tankAIScript;
+    Transform selfTransform;
+    NewTankScript tankController;
+    Vector2 dirToTarget;
+
+    public ArrivedAtTargetBase(StateMachine machine, TankAIScript_pt1 tankAIScript)
+    {
+        stateMachineInstance = machine;
+        this.tankAIScript = tankAIScript;
+        selfTransform = tankAIScript.transform;
+        tankController = tankAIScript.GetComponent<NewTankScript>();
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        Transform currTarget = tankAIScript.targetBase.transform;
+        dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
+        TryFaceTowardsDirection();
+        TryShootAtBase();
+
+        if (tankAIScript.targetBase.isDestroyed)
+        {
+            stateMachineInstance.ChangeState("GAME_OVR");
+        }
+    }
+
+    void TryShootAtBase()
+    {
+        if (IsFacingTarget(tankAIScript.targetBase.transform))
+        {
+            tankController.Shoot();
+        }
+
+    }
+
+    bool IsFacingTarget(Transform targTrans)
+    {
+        Vector2 dirToT = (targTrans.position - selfTransform.position).normalized;
+        float angle = Vector2.Angle(dirToT, tankController.muzzleTransform.up);
+        if (angle < 2)
+        { return true; }
+        return false;
+    }
+
+    void TryFaceTowardsDirection()
+    {
+        float angle = Vector2.SignedAngle(dirToTarget, tankController.muzzleTransform.up);
+        if (angle > 0)
+        { tankController.MuzzleRotate(1); }
+        else { tankController.MuzzleRotate(-1); }
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+    }
+
+
+}
+
+public class GameOverState : State
+{
+    public GameOverState(TankAIStateMachine stateMachine)
+    { }
 
 }
 

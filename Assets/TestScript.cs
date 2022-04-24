@@ -11,10 +11,21 @@ public class TestScript : MonoBehaviour
 
     Vector2 targetDirection;//It is a unit vector
 
+    List<GameObject> list;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        list = new List<GameObject>();
+
+        if (list[0] != null)
+        {
+            Debug.Log("List is not empty");
+        }
+        else { 
+            Debug.Log("List is empty");
+        }
+
     }
 
     // Update is called once per frame
