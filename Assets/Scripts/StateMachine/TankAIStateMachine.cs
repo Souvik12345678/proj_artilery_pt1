@@ -9,5 +9,4 @@ public class TankAIStateMachine : StateMachine
         stateDict.Add("ARRIV_BASE", new ArrivedAtTargetBase(this, tankAIScript));
         stateDict.Add("GAME_OVR", new GameOverState(this));
     }
-
 }

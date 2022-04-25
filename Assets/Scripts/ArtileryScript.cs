@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealthScript))]
 public class ArtileryScript : MonoBehaviour
 {
     public float projectileSpeed;
@@ -18,13 +19,28 @@ public class ArtileryScript : MonoBehaviour
 
     ArtileryStateMachine stateMachine;
     public List<NewTankScript> enemiesInSight;
+    HealthScript healthScript;
+    BoxCollider2D selfCollider;
 
-    bool isShooting;
+    bool isShooting = false;
     bool isDestroyed;
+
+    private void OnEnable()
+    {
+        healthScript.OnHealthDepleted += OnArtDestroyed;
+    }
+
+    private void OnDisable()
+    {
+        healthScript.OnHealthDepleted -= OnArtDestroyed;
+    }
 
     private void Awake()
     {
+        isDestroyed = false;
         audioSrc = GetComponent<AudioSource>();
+        healthScript = GetComponent<HealthScript>();
+        selfCollider = GetComponent<BoxCollider2D>();
     }
 
     // Start is called before the first frame update
@@ -77,6 +93,22 @@ public class ArtileryScript : MonoBehaviour
         { StartCoroutine(nameof(ShootRoutine)); }
     }
 
+    void TakeDamage()
+    { 
+        healthScript.Decrement(25);
+    }
+
+    void OnArtDestroyed()
+    {
+        if (!isDestroyed)
+        {
+            Instantiate(commonAsset.SmokePrefab, transform.position, Quaternion.identity, transform);
+            selfCollider.enabled = false;
+            isDestroyed = true;
+            StartCoroutine(nameof(DissolveRoutine));
+        }
+    }
+
     IEnumerator ShootRoutine()
     {
         isShooting = true;
@@ -100,6 +132,28 @@ public class ArtileryScript : MonoBehaviour
 
         isShooting = false;
 
+    }
+
+    IEnumerator DissolveRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        float scale = transform.localScale.x;
+        while (scale > 0.001f)
+        {
+            scale *= 0.93f;
+            transform.localScale = new Vector3(scale, scale, 1);
+            yield return null;
+        }
+        Destroy(gameObject);//Self destroy 0 secs.
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("tag_projectile"))
+        {
+            Destroy(collision.gameObject);//Destroy the projectile
+            TakeDamage();
+        }
     }
 
 }

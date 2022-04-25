@@ -11,20 +11,22 @@ public class TestScript : MonoBehaviour
 
     Vector2 targetDirection;//It is a unit vector
 
-    List<GameObject> list;
+    List<int> list;
+
+
+    TankAIStateMachine stateMachine;
+    StateMachine stateMachine1;
 
     // Start is called before the first frame update
     void Start()
     {
-        list = new List<GameObject>();
+        list = new List<int>();
+        list.Add(10);
+        list.Add(11);
+        list.Add(102);
 
-        if (list[0] != null)
-        {
-            Debug.Log("List is not empty");
-        }
-        else { 
-            Debug.Log("List is empty");
-        }
+        stateMachine = new TankAIStateMachine(new TankAIScript_pt1());
+        stateMachine1 = new StateMachine();
 
     }
 
@@ -34,6 +36,11 @@ public class TestScript : MonoBehaviour
         Vector2 dirTotarget = (target.transform.position - transform.position).normalized;
         targetDirection = dirTotarget;
         RotateLogic();
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("On Destroy");
     }
 
     void RotateLogic()

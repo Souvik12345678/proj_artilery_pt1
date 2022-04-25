@@ -38,7 +38,7 @@ public class TankAIScript_pt1 : MonoBehaviour
 
     private void OnDestroy()
     {
-        stateMachine.Exit();
+        //stateMachine.Exit();
     }
 
     private void CalculateTargetProperties()
