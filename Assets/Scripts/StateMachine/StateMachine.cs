@@ -8,6 +8,9 @@ public class StateMachine
 {
     protected State currentState;
     protected string currentStateName;
+    /// <summary>
+    /// Dictionary of all States permitted by this  state machine.
+    /// </summary>
     protected Dictionary<string, State> stateDict;
 
     public StateMachine()
