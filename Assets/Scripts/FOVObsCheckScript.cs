@@ -28,6 +28,18 @@ public class FOVObsCheckScript : MonoBehaviour
         CheckObstacle();
     }
 
+    private void Update()
+    {
+        if (timer <= 0)
+        {
+            CheckObstacle();
+            timer = 1 / collisionChecksEverySec;//Reset timer
+            //Debug.Log("Collision Check");
+        }
+        timer -= Time.deltaTime;
+    }
+
+    /*
     private void FixedUpdate()
     {
         if (timer <= 0)
@@ -38,6 +50,7 @@ public class FOVObsCheckScript : MonoBehaviour
         }
         timer -= Time.fixedDeltaTime;
     }
+    */
 
     void CheckObstacle()
     {

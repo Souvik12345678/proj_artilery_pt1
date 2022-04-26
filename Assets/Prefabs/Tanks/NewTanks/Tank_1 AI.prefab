@@ -112,7 +112,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!82 &287464840101141132
 AudioSource:
@@ -553,9 +553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6156236d6a548e34390a7962394a137b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 5.5
   angle: 45
-  collisionChecksEverySec: 1
+  collisionChecksEverySec: 2
   targetMask:
     serializedVersion: 2
     m_Bits: 256
