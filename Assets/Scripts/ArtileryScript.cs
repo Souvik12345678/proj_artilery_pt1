@@ -93,6 +93,11 @@ public class ArtileryScript : MonoBehaviour
         { StartCoroutine(nameof(ShootRoutine)); }
     }
 
+    public HealthScript GetHealthScript()
+    {
+        return healthScript;  
+    }
+
     void TakeDamage()
     { 
         healthScript.Decrement(25);

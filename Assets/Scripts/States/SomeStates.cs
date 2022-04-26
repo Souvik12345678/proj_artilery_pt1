@@ -44,43 +44,46 @@ public class ApproachingBaseState : State
 
     bool DriveTank()
     {
-        bool isMoving = false;
-        float distanceToTarget = Vector2.Distance(selfTransform.position, targetBase.transform.position);
-
-        //If target too far
-        if (distanceToTarget > targetDistanceTolerance)
+        if (targetBase != null)
         {
-            dirToTarget = (targetBase.transform.position - selfTransform.position).normalized;
-            float dotProd = Vector2.Dot(selfTransform.up, dirToTarget);
+            bool isMoving = false;
+            float distanceToTarget = Vector2.Distance(selfTransform.position, targetBase.transform.position);
 
-            //move forward?
-            if (dotProd > 0)
+            //If target too far
+            if (distanceToTarget > targetDistanceTolerance)
             {
-                tankController.Move(1, 0);
-            }
-            //move backward?
-            else
-            {
-                if (distanceToTarget > 2.5f)
+                dirToTarget = (targetBase.transform.position - selfTransform.position).normalized;
+                float dotProd = Vector2.Dot(selfTransform.up, dirToTarget);
+
+                //move forward?
+                if (dotProd > 0)
                 {
-                    //Too far to reverse
                     tankController.Move(1, 0);
                 }
+                //move backward?
                 else
                 {
-                    tankController.Move(-1, 0);
+                    if (distanceToTarget > 2.5f)
+                    {
+                        //Too far to reverse
+                        tankController.Move(1, 0);
+                    }
+                    else
+                    {
+                        tankController.Move(-1, 0);
+                    }
                 }
+
+                isMoving = true;
             }
-
-            isMoving = true;
+            else//Reached target
+            {
+            }
+            return isMoving;
         }
-        else//Reached target
-        {
-        }
-
-        return isMoving;
+        return false;
     }
-
+    
 }
 
 /// <summary>
@@ -136,7 +139,7 @@ public class ApproachingBaseAndMuzzleAimState : ApproachingBaseState
     
     public ApproachingBaseAndMuzzleAimState(StateMachine stateMachine, TankAIScript_pt1 tankAIScript) : base(stateMachine, tankAIScript)
     {
-        targetBaseTransform = tankAIScript.targetBase.transform;
+        targetBaseTransform = tankAIScript.targetBase != null ? tankAIScript.targetBase.transform : null;
     }
 
     public override void OnUpdate()
@@ -218,7 +221,14 @@ public class AttackingTroopsState : State
         }
         else
         {
-            stateMachineInstance.ChangeState("APPR_BASE");
+            if (tankAIScript.targetBase == null)
+            {
+                stateMachineInstance.ChangeState("NO_TARG");
+            }
+            else
+            {
+                stateMachineInstance.ChangeState("APPR_BASE");
+            }
         }
     }
 
@@ -340,3 +350,36 @@ public class DestroyedState :State
 
 }
 
+public class NoTargetState : State
+{
+    TankAIScript_pt1 tankAIScript;
+    public NoTargetState(StateMachine machine, TankAIScript_pt1 tankScript)
+    {
+        stateMachineInstance = machine;
+        tankAIScript = tankScript; 
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        CheckForBase();
+        CheckForEnemy();
+    }
+
+    void CheckForBase()
+    {
+        if (tankAIScript.targetBase != null)
+            stateMachineInstance.ChangeState("APPR_BASE");
+    
+    }
+
+    void CheckForEnemy()
+    {
+        if (tankAIScript.enemiesInSight.Count > 0)
+        {
+            stateMachineInstance.ChangeState("ATTK_ENEM");
+        }
+
+    }
+
+}
