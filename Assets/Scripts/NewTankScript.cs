@@ -19,10 +19,12 @@ public class NewTankScript : MonoBehaviour
     CommonAssetScrObj commonAsset;
     AudioSource audioSrc;
 
-
+    Vector2 nextPosition;
+    float nextRotation;
     HealthScript healthScript;
     bool isShooting;
     Collider2D selfCollider;
+    Rigidbody2D rBody;
 
     private void OnEnable()
     {
@@ -41,11 +43,23 @@ public class NewTankScript : MonoBehaviour
         healthScript = GetComponent<HealthScript>();
         audioSrc = GetComponent<AudioSource>();
         selfCollider = GetComponent<BoxCollider2D>();
+        rBody = GetComponent<Rigidbody2D>();
+
+        nextPosition = transform.position;
+        nextRotation = rBody.rotation;
+    }
+
+    private void FixedUpdate()
+    {
+        rBody.MovePosition(nextPosition);
+        rBody.MoveRotation(nextRotation);
     }
 
     /// <summary>
     /// forward 1 -> move forward, forward -1 -> movebackward,turn-> Rotate clockwise if -1 and counterclockwise if 1
     /// </summary>
+
+    /*
     public void Move(int forward, int turn)
     {
         if (!isDestroyed)
@@ -53,7 +67,19 @@ public class NewTankScript : MonoBehaviour
             transform.Translate(forward * driveSpeed * Time.deltaTime * transform.up, Space.World);
             transform.Rotate(0, 0, turn * Time.deltaTime * rotateSpeed);
         }
+    }*/
+
+    public void Move(int forward, int turn)
+    {
+        if (!isDestroyed)
+        {
+            //rBody.MovePosition(transform.position+ (forward * driveSpeed * transform.up));
+            nextPosition = transform.position + (forward *0.01f* driveSpeed * transform.up);
+            nextRotation = rBody.rotation + turn * 0.01f * rotateSpeed;
+        }
     }
+
+
 
     /// <summary>
     /// turn == 1 clockwise, turn == -1 anticlockwise
