@@ -54,6 +54,7 @@ public class FOVObsCheckScript : MonoBehaviour
 
     void CheckObstacle()
     {
+        int instId = GetInstanceID();
         Array.Clear(obstaclesInRange, 0, obstaclesInRange.Length);
 
         isObstaclesInRange = false;

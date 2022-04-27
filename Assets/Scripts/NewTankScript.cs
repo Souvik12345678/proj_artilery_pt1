@@ -55,11 +55,10 @@ public class NewTankScript : MonoBehaviour
         rBody.MoveRotation(nextRotation);
     }
 
+    /*
     /// <summary>
     /// forward 1 -> move forward, forward -1 -> movebackward,turn-> Rotate clockwise if -1 and counterclockwise if 1
     /// </summary>
-
-    /*
     public void Move(int forward, int turn)
     {
         if (!isDestroyed)
@@ -69,6 +68,9 @@ public class NewTankScript : MonoBehaviour
         }
     }*/
 
+    /// <summary>
+    /// forward 1 -> move forward, forward -1 -> movebackward,turn-> Rotate clockwise if -1 and counterclockwise if 1
+    /// </summary>
     public void Move(int forward, int turn)
     {
         if (!isDestroyed)
@@ -78,8 +80,6 @@ public class NewTankScript : MonoBehaviour
             nextRotation = rBody.rotation + turn * 0.01f * rotateSpeed;
         }
     }
-
-
 
     /// <summary>
     /// turn == 1 clockwise, turn == -1 anticlockwise
