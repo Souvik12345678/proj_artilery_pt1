@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8e6a605f5080942b3d4bc72e2544d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  driveSpeed: 6
+  driveSpeed: 4
   rotateSpeed: 45
   muzzRotateSpeed: 45
   shootDelay: 2
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 5.5
   angle: 45
-  collisionChecksEverySec: 4
+  collisionChecksEverySec: 10
   targetMask:
     serializedVersion: 2
     m_Bits: 256

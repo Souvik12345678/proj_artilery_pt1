@@ -369,6 +369,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
       propertyPath: m_TagString
       value: tag_opponent2
       objectReference: {fileID: 0}
@@ -846,6 +851,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank_1 AI (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141126, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -24454,6 +24464,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
       propertyPath: m_TagString
       value: tag_opponent2
       objectReference: {fileID: 0}
@@ -24795,6 +24810,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
       propertyPath: m_TagString
       value: tag_opponent2
       objectReference: {fileID: 0}
@@ -24877,6 +24897,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank_1 AI (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141126, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -25033,6 +25058,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank_1 AI (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141126, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
