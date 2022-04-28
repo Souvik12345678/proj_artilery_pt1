@@ -7,6 +7,7 @@ public class AllEventsScript : MonoBehaviour
 
     // public static Func1 OnArrestInitiated;
     public delegate void Func1(int id);
-    public static Func1 OnBaseDestroyed; 
+    public static Func1 OnBaseDestroyed;
+    public static BlankFunc OnGameOver;
 
 }

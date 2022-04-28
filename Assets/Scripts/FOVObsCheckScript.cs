@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class FOVObsCheckScript : MonoBehaviour
 {
-
     public float radius;
     public float angle;
     [SerializeField]
@@ -14,12 +13,14 @@ public class FOVObsCheckScript : MonoBehaviour
     public bool isObstaclesInRange;
 
     public GameObject[] obstaclesInRange;
+    Collider2D[] collArray; 
 
     float timer;
 
     private void Awake()
     {
         obstaclesInRange = new GameObject[3];
+        collArray = new Collider2D[7];
     }
 
     private void Start()
@@ -52,6 +53,7 @@ public class FOVObsCheckScript : MonoBehaviour
     }
     */
 
+    /*
     void CheckObstacle()
     {
         int instId = GetInstanceID();
@@ -82,6 +84,7 @@ public class FOVObsCheckScript : MonoBehaviour
             }
         }
         */
+        /*
         if (res > 0)//If resultant array is non zero.
         {
             int j = 0;
@@ -100,6 +103,37 @@ public class FOVObsCheckScript : MonoBehaviour
 
             }
         }
+    }
+*/
+
+    void CheckObstacle()
+    {
+        Array.Clear(obstaclesInRange, 0, obstaclesInRange.Length);
+        Array.Clear(collArray, 0, collArray.Length);
+
+        isObstaclesInRange = false;
+
+        int res = Physics2D.OverlapCircleNonAlloc(transform.position, radius, collArray, targetMask);
+
+        if (res > 0)//If resultant array is non zero.
+        {
+            int j = 0;
+            for (int i = 0; i < collArray.Length && j < 7; i++)
+            {
+                if (collArray[i] != null)//Check if element is not null.
+                {
+                    var directionToTarget = (collArray[i].transform.position - transform.position).normalized;
+                    if (Vector2.Angle(transform.up, directionToTarget) < angle)//If target in fov
+                    {
+                        obstaclesInRange[j] = collArray[i].gameObject;//Add them to obstaclesinrange Array
+                        j++;
+                        isObstaclesInRange = true;
+                    }
+                }
+
+            }
+        }
+
     }
 
 }

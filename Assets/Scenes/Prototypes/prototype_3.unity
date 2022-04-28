@@ -370,7 +370,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -855,7 +855,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141126, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -881,6 +881,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: artilery (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425983421865837640, guid: 7a6829509d43eaf4394dcfa80105c497,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1425983421865837643, guid: 7a6829509d43eaf4394dcfa80105c497,
         type: 3}
@@ -1005,6 +1010,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank_1 AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -24465,7 +24475,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -24496,6 +24506,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: artilery
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425983421865837640, guid: 7a6829509d43eaf4394dcfa80105c497,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1425983421865837643, guid: 7a6829509d43eaf4394dcfa80105c497,
         type: 3}
@@ -24811,7 +24826,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -24901,7 +24916,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141126, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
@@ -25062,7 +25077,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141125, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141126, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}

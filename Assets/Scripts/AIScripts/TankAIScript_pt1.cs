@@ -16,6 +16,16 @@ public class TankAIScript_pt1 : MonoBehaviour
 
     NewTankScript tankController;
 
+    private void OnEnable()
+    {
+        AllEventsScript.OnGameOver += OnGameOver;
+    }
+
+    private void OnDisable()
+    {
+        AllEventsScript.OnGameOver -= OnGameOver;
+    }
+
     private void Awake()
     {
         
@@ -129,6 +139,11 @@ public class TankAIScript_pt1 : MonoBehaviour
 
         stateMachine.Start();
 
+    }
+
+    void OnGameOver()
+    {
+        stateMachine.ChangeState("GAME_OVR");
     }
 
 }

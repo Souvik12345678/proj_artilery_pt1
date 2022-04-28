@@ -29,6 +29,8 @@ public class GameOverseerScript : MonoBehaviour
     {
         Debug.Log(destoyedBaseId);
 
+        AllEventsScript.OnGameOver?.Invoke();//Invoke on game over event
+
         //Display game over panel
         Transform gameWinTr = gameOverPanel.transform.Find("GameWinText");
         gameWinTr.GetComponent<TMP_Text>().text = "Base " + Invert(destoyedBaseId) + " wins !";
