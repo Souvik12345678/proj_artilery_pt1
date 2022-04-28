@@ -212,7 +212,7 @@ public class AttackingTroopsState : State
     public override void OnUpdate()
     {
         base.OnUpdate();
-        if (tankAIScript.enemiesInSight.Count > 0)
+        if (tankAIScript.enemiesInSight.Count > 0)//If there are enemies
         {
             Transform currTarget = tankAIScript.enemiesInSight[0].transform;
             dirToTarget = (currTarget.transform.position - selfTransform.position).normalized;
