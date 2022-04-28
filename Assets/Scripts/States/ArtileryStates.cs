@@ -91,12 +91,11 @@ public class Artilery_t1IdleState : State
 public class Artilery_t1AttackingState : State
 {
     Artilery_t1Script artScript;
-    StateMachine stateMachine;
     Transform selfTransform;
     Vector2 dirToTarget;
 
     public Artilery_t1AttackingState(StateMachine artStateMachine, Artilery_t1Script artileryScript)
-    { artScript = artileryScript; stateMachine = artStateMachine;selfTransform = artileryScript.transform; }
+    { artScript = artileryScript; stateMachineInstance = artStateMachine;selfTransform = artileryScript.transform; }
 
     public override void OnUpdate()
     {

@@ -110,16 +110,27 @@ public class TankAIScript_pt1 : MonoBehaviour
             }
             else//If it is an artilery
             {
-                if (item.GetComponent<ArtileryScript>().GetHealthScript().currentHP > 0)
+                if (item.GetComponent<ArtileryScript>() != null)//If artilery type 1
                 {
-                    if (!item.CompareTag(tag))//if not on same team
+                    if (item.GetComponent<ArtileryScript>().GetHealthScript().currentHP > 0)
                     {
-                        return true;
+                        if (!item.CompareTag(tag))//if not on same team
+                        {
+                            return true;
 
+                        }
                     }
-
                 }
-            
+                else//If artilery type 2
+                {
+                    if (item.GetComponent<Artilery_t1Script>().GetHealthScript().currentHP > 0)
+                    {
+                        if (!item.CompareTag(tag))//if not on same team
+                        {
+                            return true;
+                        }
+                    }
+                }     
             }
         }
         return false;
