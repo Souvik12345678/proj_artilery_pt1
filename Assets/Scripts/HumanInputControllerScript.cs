@@ -5,32 +5,32 @@ using UnityEngine;
 public class HumanInputControllerScript : MonoBehaviour
 {
     public NewTankScript tankScript;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    int[] controlBits = new int[2];
 
     // Update is called once per frame
     void Update()
     {
+        controlBits[0] = controlBits[1] = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            tankScript.Move(1, 0);
+            controlBits[0] = 1;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            tankScript.Move(-1, 0);
+            controlBits[0] = -1;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            tankScript.Move(0, -1);
+            controlBits[1] = -1;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            tankScript.Move(0, 1);
+            controlBits[1] = 1;
         }
+
+        tankScript.Move(controlBits[0], controlBits[1]);
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -40,6 +40,11 @@ public class HumanInputControllerScript : MonoBehaviour
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             tankScript.MuzzleRotate(1);
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            tankScript.Shoot();
         }
 
     }
