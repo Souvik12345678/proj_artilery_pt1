@@ -16,13 +16,13 @@ public class NewTankScript : MonoBehaviour
     [SerializeField]
     Transform firePoint;
     [SerializeField]
-    CommonAssetScrObj commonAsset;
-    AudioSource audioSrc;
+    protected CommonAssetScrObj commonAsset;
+    protected AudioSource audioSrc;
 
     Vector2 nextPosition;
     float nextRotation;
     HealthScript healthScript;
-    bool isShooting;
+    protected bool isShooting;
     Collider2D selfCollider;
     Rigidbody2D rBody;
 
@@ -109,7 +109,7 @@ public class NewTankScript : MonoBehaviour
     /// <summary>
     /// Shoot!
     /// </summary>
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (!isShooting && !isDestroyed)
         { StartCoroutine(nameof(ShootRoutine)); }
@@ -134,7 +134,7 @@ public class NewTankScript : MonoBehaviour
         }
     }
 
-    IEnumerator ShootRoutine()
+    public virtual IEnumerator ShootRoutine()
     {
         isShooting = true;
 
