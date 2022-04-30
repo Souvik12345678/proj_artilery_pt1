@@ -1016,6 +1016,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: artilery_t1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2819849151916754071, guid: 979a3b10f8d9fed41adc479f2a90967d,
+        type: 3}
+      propertyPath: angle
+      value: 18.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 2819849151916754071, guid: 979a3b10f8d9fed41adc479f2a90967d,
+        type: 3}
+      propertyPath: radius
+      value: 16.82
+      objectReference: {fileID: 0}
     - target: {fileID: 6841988278284488229, guid: 979a3b10f8d9fed41adc479f2a90967d,
         type: 3}
       propertyPath: muzzRotateSpeed
