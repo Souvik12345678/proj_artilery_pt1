@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
-  godMode: 0
+  godMode: 1
 --- !u!82 &314445564
 AudioSource:
   m_ObjectHideFlags: 0
@@ -366,7 +366,7 @@ PrefabInstance:
     - target: {fileID: 287464840101141120, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
       propertyPath: godMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 287464840101141123, guid: f7663fcfc6118854fbaebed50fbebbc6,
         type: 3}
