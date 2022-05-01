@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 13
-  angle: 13.06
+  angle: 8.2
   collisionChecksEverySec: 2
   targetMask:
     serializedVersion: 2

@@ -426,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 25
   shootDelay: 2
-  muzzRotateSpeed: 10
+  muzzRotateSpeed: 45
   firePoints:
   - {fileID: 2819849152785034632}
   - {fileID: 2819849152965637533}
@@ -754,8 +754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6156236d6a548e34390a7962394a137b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 7
-  angle: 70
+  radius: 7.5
+  angle: 80
   collisionChecksEverySec: 2
   targetMask:
     serializedVersion: 2
