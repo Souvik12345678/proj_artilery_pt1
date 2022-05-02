@@ -29,11 +29,13 @@ public class Artilery_t1Script : MonoBehaviour
     private void OnEnable()
     {
         healthScript.OnHealthDepleted += OnArtDestroyed;
+        AllEventsScript.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
         healthScript.OnHealthDepleted -= OnArtDestroyed;
+        AllEventsScript.OnGameOver -= OnGameOver;
     }
 
     private void Awake()
@@ -133,6 +135,11 @@ public class Artilery_t1Script : MonoBehaviour
             isDestroyed = true;
             StartCoroutine(nameof(DissolveRoutine));
         }
+    }
+
+    void OnGameOver()
+    {
+        stateMachine.ChangeState("GAME_OVR");
     }
 
     /*

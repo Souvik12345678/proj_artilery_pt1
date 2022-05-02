@@ -9,6 +9,7 @@ public class ArtileryStateMachine : StateMachine
     {
         stateDict.Add("IDLE", new ArtileryIdleState(this, artScript));
         stateDict.Add("ATTK", new ArtileryAttackingState(this, artScript));
+        stateDict.Add("GAME_OVR", new ArtileryAttackingState(this, artScript));
     }
 
 }
@@ -57,6 +58,11 @@ public class ArtileryAttackingState : State
 
 }
 
+public class ArtileryGameOverState : State
+{
+
+}
+
 //-----------------------------------
 //Artilery type 2 state machine
 //-----------------------------------
@@ -66,6 +72,7 @@ public class Artilery_t1StateMachine : StateMachine
     {
         stateDict.Add("IDLE", new Artilery_t1IdleState(this, artScript));
         stateDict.Add("ATTK", new Artilery_t1AttackingState(this, artScript));
+        stateDict.Add("GAME_OVR",new ArtileryGameOverState());
     }
 
 }
