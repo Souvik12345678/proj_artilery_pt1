@@ -29,10 +29,7 @@ public class ArmyBaseScript : MonoBehaviour
     Sprite armyBaseDestroyedSp;
     [SerializeField]
     GameObject tankPrefab;
-    [SerializeField]
-    Transform smokePrefab;
-    [SerializeField]
-    GameObject whiteFlagPrefab;
+    public CommonAssetScrObj commAsset;
     [SerializeField]
     List<GameObject> tanksList;
 
@@ -99,11 +96,11 @@ public class ArmyBaseScript : MonoBehaviour
         if (!isDestroyed)
         {
             armyBaseRenderer.sprite = armyBaseDestroyedSp;
-            Instantiate(smokePrefab, transform.position, Quaternion.identity);
+            Instantiate(commAsset.SmokePrefab, transform.position, Quaternion.identity);
 
             //Instantiate whiteflag
             Vector3 pos = transform.position + new Vector3(1,0);
-            Instantiate(whiteFlagPrefab, pos, Quaternion.identity);
+            Instantiate(commAsset.WhiteFlagPrefab, pos, Quaternion.identity);
 
             AllEventsScript.OnBaseDestroyed?.Invoke(baseId);
             isDestroyed = true;
