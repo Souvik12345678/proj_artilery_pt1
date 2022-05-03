@@ -99,7 +99,7 @@ public class ArmyBaseScript : MonoBehaviour
             Instantiate(commAsset.SmokePrefab, transform.position, Quaternion.identity);
 
             //Instantiate whiteflag
-            Vector3 pos = transform.position + new Vector3(1,0);
+            Vector3 pos = transform.Find("wf_spawnpoint").position;
             Instantiate(commAsset.WhiteFlagPrefab, pos, Quaternion.identity);
 
             AllEventsScript.OnBaseDestroyed?.Invoke(baseId);

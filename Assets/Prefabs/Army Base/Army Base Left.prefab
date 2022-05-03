@@ -90,6 +90,7 @@ Transform:
   - {fileID: 9190280897175032239}
   - {fileID: 4248348806488312981}
   - {fileID: 6442269824789161802}
+  - {fileID: 7832173340156711227}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,10 +137,7 @@ MonoBehaviour:
     type: 3}
   tankPrefab: {fileID: 8280467662287840878, guid: 06f05213b0ed8da41a24eba481c32208,
     type: 3}
-  smokePrefab: {fileID: 7895424968239013462, guid: c536fc62dac47974d908dbe3234191b5,
-    type: 3}
-  whiteFlagPrefab: {fileID: 1093767674789025785, guid: 3a29b3a8727573940bd843ebb0f2e163,
-    type: 3}
+  commAsset: {fileID: 0}
   tanksList: []
   isDestroyed: 0
 --- !u!1 &3201058570623012957
@@ -378,6 +376,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4463621493660518806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7832173340156711227}
+  m_Layer: 0
+  m_Name: wf_spawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7832173340156711227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463621493660518806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.66, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1481759699882212379}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4549206017466118686
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +513,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11, y: 1}
+  m_Size: {x: 2, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &2668333601023772569
 MonoBehaviour:

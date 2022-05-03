@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TANK_1
   m_EditorClassIdentifier: 
   tankName: Rihno
-  driveSpeed: 0
-  rotateSpeed: 0
-  muzzRotateSpeed: 0
-  shootDelay: 0
+  driveSpeed: 4
+  rotateSpeed: 45
+  muzzRotateSpeed: 45
+  shootDelay: 2
   shootDamage: 0
-  maxHealth: 0
+  maxHealth: 100
