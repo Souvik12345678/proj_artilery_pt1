@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 952039776281020071, guid: 6a5cd8bcf7727e24585c965494c3989d,
+        type: 3}
+      propertyPath: barProgress
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1481759699882212379, guid: 6a5cd8bcf7727e24585c965494c3989d,
         type: 3}
       propertyPath: m_RootOrder
